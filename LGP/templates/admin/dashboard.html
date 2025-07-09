@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 pt-5">
+    <h2 class="mb-4">Admin Dashboard</h2>
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 col-6 mb-3">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Images</h5>
+                    <p class="display-6">{{ total_images }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+            <div class="card text-white bg-success h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Categories</h5>
+                    <p class="display-6">{{ total_categories }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+            <div class="card text-white bg-info h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Messages</h5>
+                    <p class="display-6">{{ total_messages }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+            <div class="card text-white bg-danger h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Unread Messages</h5>
+                    <p class="display-6">{{ unread_messages }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quick Actions -->
+    <div class="mb-4 d-flex flex-wrap gap-2">
+        <a href="{% url 'gallery:upload_image' %}" class="btn btn-primary"><i class="fas fa-upload"></i> Upload Image</a>
+        <a href="{% url 'gallery:site_settings' %}" class="btn btn-warning"><i class="fas fa-cog"></i> Site Settings</a>
+        <a href="{% url 'gallery:about_page_edit' %}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> Edit About Page</a>
+        <a href="{% url 'gallery:gallery' %}" class="btn btn-success"><i class="fas fa-images"></i> View Gallery</a>
+        <a href="{% url 'gallery:contact' %}" class="btn btn-info"><i class="fas fa-envelope"></i> View Messages</a>
+    </div>
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">Recent Images</div>
+                <ul class="list-group list-group-flush">
+                    {% for image in recent_images %}
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="{{ image.image.url }}" alt="{{ image.title }}" height="40" class="me-3 rounded">
+                            <div>
+                                <strong>{{ image.title }}</strong><br>
+                                <small class="text-muted">{{ image.uploaded_at|date:"M d, Y H:i" }}</small>
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No recent images.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">Recent Messages</div>
+                <ul class="list-group list-group-flush">
+                    {% for msg in recent_messages %}
+                        <li class="list-group-item">
+                            <strong>{{ msg.name }}</strong>: {{ msg.subject|truncatechars:30 }}<br>
+                            <small class="text-muted">{{ msg.created_at|date:"M d, Y H:i" }}</small>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No recent messages.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

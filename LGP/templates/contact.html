@@ -1,0 +1,56 @@
+
+<!-- templates/contact.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact - {{ site_settings.site_name|default:"Lyn Gallery" }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-5">Contact Us</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="contact-form">
+                <h3 class="mb-4">Get In Touch</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="contact-info">
+                <h3 class="mb-4">Contact Information</h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h5>Address</h5>
+                        <p>{{ site_settings.address|default:"123 Main St, City, State 12345" }}</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h5>Phone</h5>
+                        <p>{{ site_settings.contact_phone|default:"+1234567890" }}</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h5>Email</h5>
+                        <p>{{ site_settings.contact_email|default:"contact@lyngallery.com" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

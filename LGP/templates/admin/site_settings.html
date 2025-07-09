@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Site Settings Form -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Site Settings</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary mt-3 w-100">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Logo Section -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-light">
+                    <h4 class="mb-0">Current Logo</h4>
+                </div>
+                <div class="card-body text-center">
+                    {% if form.instance.logo %}
+                        <img src="{{ form.instance.logo.url }}" alt="Logo" class="img-fluid rounded shadow-sm mb-2" style="max-height: 80px;">
+                    {% else %}
+                        <p class="text-muted">No logo uploaded.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Hero Video Section -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-light">
+                    <h4 class="mb-0">Current Hero Video</h4>
+                </div>
+                <div class="card-body text-center">
+                    {% if form.instance.hero_video %}
+                        <video src="{{ form.instance.hero_video.url }}" controls class="w-100 rounded mb-2" style="max-height: 200px;"></video>
+                        <form method="post" action="" class="d-inline-block mt-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_video" value="1">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete Video</button>
+                        </form>
+                    {% else %}
+                        <p class="text-muted">No hero video uploaded.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
