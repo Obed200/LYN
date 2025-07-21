@@ -1,5 +1,5 @@
 from django import forms
-from .models import GalleryImage, ContactMessage, SiteSettings, Category, AboutPage
+from .models import GalleryImage, ContactMessage, SiteSettings, Category, AboutPage, GalleryVideo, AboutFeature
 
 class GalleryImageForm(forms.ModelForm):
     class Meta:
@@ -45,4 +45,15 @@ class AboutPageForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'story': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
             'values': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+        }
+
+class AboutFeatureForm(forms.ModelForm):
+    class Meta:
+        model = AboutFeature
+        fields = ['title', 'description', 'icon', 'order']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'icon': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'fa-star'}),
+            'order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
         }

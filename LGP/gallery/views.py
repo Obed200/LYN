@@ -5,20 +5,39 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import GalleryImage, Category, ContactMessage, SiteSettings, AboutPage
-from .forms import GalleryImageForm, ContactForm, SiteSettingsForm, AboutPageForm
+from .models import GalleryImage, Category, ContactMessage, SiteSettings, AboutPage, GalleryVideo, AboutFeature
+from .forms import GalleryImageForm, ContactForm, SiteSettingsForm, AboutPageForm, AboutFeatureForm
+from django.urls import reverse
+from django.views.decorators.http import require_POST
+
+
+# from .models import GalleryImage, Category, ContactMessage, SiteSettings, AboutPage, GalleryVideo  # include GalleryVideo
 
 def home(request):
     featured_images = GalleryImage.objects.filter(is_featured=True)[:6]
     categories = Category.objects.all()[:4]
+    featured_videos = GalleryVideo.objects.filter(is_featured=True)[:6]  # new line
+
     context = {
         'featured_images': featured_images,
         'categories': categories,
+        'videos': featured_videos,  # new line
     }
     return render(request, 'home.html', context)
 
-def about(request):
-    return render(request, 'about.html')
+
+
+def message(request):
+    return render(request, 'admin/message.html')
+
+# def home(request):
+#     featured_images = GalleryImage.objects.filter(is_featured=True)[:6]
+#     categories = Category.objects.all()[:4]
+#     context = {
+#         'featured_images': featured_images,
+#         'categories': categories,
+#     }
+#     return render(request, 'home.html', context)
 
 def gallery(request):
     images = GalleryImage.objects.all()
@@ -140,6 +159,29 @@ def about_page_edit(request):
     else:
         form = AboutPageForm(instance=about_obj)
     return render(request, 'admin/about_page_edit.html', {'form': form})
+
+@staff_member_required
+def about_features_manage(request):
+    features = AboutFeature.objects.all()
+    form = AboutFeatureForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, 'Feature added!')
+        return redirect(reverse('gallery:about_features_manage'))
+    return render(request, 'admin/about_features_manage.html', {'form': form, 'features': features})
+
+@staff_member_required
+@require_POST
+def about_feature_delete(request, feature_id):
+    feature = AboutFeature.objects.filter(id=feature_id).first()
+    if feature:
+        feature.delete()
+        messages.success(request, 'Feature deleted!')
+    return redirect(reverse('gallery:about_features_manage'))
+
+def about(request):
+    features = AboutFeature.objects.all()
+    return render(request, 'about.html', {'features': features})
 
 def download_image(request, image_id):
     image = get_object_or_404(GalleryImage, id=image_id)

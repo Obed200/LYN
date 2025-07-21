@@ -1,5 +1,3 @@
-
-<!-- templates/about.html -->
 {% extends 'base.html' %}
 {% load static %}
 
@@ -7,67 +5,30 @@
 
 {% block content %}
 <div class="container mt-5 pt-4">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center mb-5">About Us</h1>
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold text-primary mb-3">About Us</h1>
+            <p class="lead">Learn more about our values and what makes us unique.</p>
         </div>
     </div>
-    
-    <div class="row align-items-center mb-5">
-        <div class="col-lg-6">
-            <img src="{% static 'images/about-hero.jpg' %}" alt="About Us" class="img-fluid rounded">
-        </div>
-        <div class="col-lg-6">
-            <h2>Our Story</h2>
-            <p class="lead">With over 25 years of experience in design and architecture, Lyn Gallery has been at the forefront of creating exceptional spaces that inspire and delight.</p>
-            <p>We believe that great design is not just about aesthetics—it's about creating functional, beautiful spaces that enhance the way people live and work. Our team of skilled designers and craftspeople work collaboratively to bring your vision to life.</p>
-            <p>From concept to completion, we ensure every detail is perfect, every material is of the highest quality, and every client is completely satisfied with the final result.</p>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center mb-5">Our Values</h2>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-3 mb-4">
-            <div class="value-card text-center">
-                <div class="value-icon">
-                    <i class="fas fa-lightbulb"></i>
+    <div class="row justify-content-center">
+        {% if features %}
+            {% for feature in features %}
+            <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                <div class="value-card text-center p-4 shadow-sm w-100 h-100 bg-light rounded-4">
+                    <div class="value-icon mb-3 display-5 text-primary">
+                        <i class="fas {{ feature.icon|default:'fa-star' }}"></i>
+                    </div>
+                    <h4 class="fw-semibold mb-2">{{ feature.title }}</h4>
+                    <p class="mb-0 text-muted">{{ feature.description }}</p>
                 </div>
-                <h4>Innovation</h4>
-                <p>We constantly push the boundaries of design to create unique, innovative solutions for our clients.</p>
             </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="value-card text-center">
-                <div class="value-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h4>Passion</h4>
-                <p>Our passion for design drives us to deliver exceptional results that exceed expectations.</p>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">No features have been added yet. Please check back soon!</div>
             </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="value-card text-center">
-                <div class="value-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h4>Collaboration</h4>
-                <p>We work closely with our clients to ensure their vision becomes reality.</p>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="value-card text-center">
-                <div class="value-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>Excellence</h4>
-                <p>We strive for excellence in every project, no matter how big or small.</p>
-            </div>
-        </div>
+        {% endif %}
     </div>
 </div>
-{% endblock %}
+{% endblock %} 

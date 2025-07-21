@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SiteSettings, Category, GalleryImage, ContactMessage, AboutPage
+from .models import SiteSettings, Category, GalleryImage, ContactMessage, AboutPage, GalleryVideo, AboutFeature
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
@@ -27,3 +27,19 @@ class ContactMessageAdmin(admin.ModelAdmin):
 @admin.register(AboutPage)
 class AboutPageAdmin(admin.ModelAdmin):
     list_display = ['title']
+    
+    
+from .models import GalleryVideo
+
+@admin.register(GalleryVideo)
+class GalleryVideoAdmin(admin.ModelAdmin):
+    list_display = ['title', 'uploaded_by', 'uploaded_at', 'is_featured']
+    list_filter = ['is_featured', 'uploaded_at']
+    search_fields = ['title', 'description']
+    readonly_fields = ['uploaded_at']
+
+@admin.register(AboutFeature)
+class AboutFeatureAdmin(admin.ModelAdmin):
+    list_display = ['title', 'icon', 'order']
+    list_editable = ['order']
+    search_fields = ['title', 'description', 'icon']

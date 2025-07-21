@@ -53,50 +53,85 @@
     </div>
 </section>
 
+
+
+
+<!-- Video Gallery Section -->
+<section class="py-5 text-white">
+    <div class="container">
+        <h2 class="text-center text-dark mb-5">Featured Videos</h2>
+        <!-- Swiper -->
+        <div class="swiper featured-videos-swiper">
+            <div class="swiper-wrapper">
+                {% for video in videos %}
+                <div class="swiper-slide">
+                    <div class="card bg-light text-dark video-card-small">
+                        <img src="{{ video.thumbnail.url }}" class="card-img-top" alt="{{ video.title }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ video.title }}</h5>
+                            <p class="card-text">{{ video.description|truncatewords:15 }}</p>
+                            <a href="{{ video.video_file.url }}" target="_blank" class="btn btn-danger">
+                                <i class="fas fa-play"></i> Watch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">No featured videos available.</p>
+                {% endfor %}
+            </div>
+            <!-- Swiper scrollbar for horizontal scroll -->
+            <div class="featured-videos-scrollbar swiper-scrollbar"></div>
+        </div>
+    </div>
+</section>
+
 <!-- Featured Gallery -->
 <section class="py-5">
     <div class="container">
         <h2 class="text-center mb-5">Featured Projects</h2>
-        <div class="row">
-            {% for image in featured_images %}
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="gallery-card">
-                        <div class="gallery-image">
-                            <img src="{{ image.image.url }}" alt="{{ image.title }}" class="img-fluid">
-                            <div class="gallery-overlay">
-                                <div class="gallery-actions">
-                                    <a href="{{ image.image.url }}" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{% url 'gallery:download_image' image.id %}" class="btn btn-light btn-sm">
-                                        <i class="fas fa-download"></i>
-                                    </a>
+        <div class="swiper featured-images-swiper">
+            <div class="swiper-wrapper">
+                {% for image in featured_images %}
+                    <div class="swiper-slide">
+                        <div class="gallery-card image-card-small">
+                            <div class="gallery-image">
+                                <img src="{{ image.image.url }}" alt="{{ image.title }}" class="img-fluid">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-actions">
+                                        <a href="{{ image.image.url }}" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{% url 'gallery:download_image' image.id %}" class="btn btn-light btn-sm">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gallery-card-body">
+                                <h5 class="gallery-title">{{ image.title }}</h5>
+                                <p class="gallery-category">{{ image.category.name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal for image preview -->
+                    <div class="modal fade" id="imageModal{{ image.id }}" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">{{ image.title }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ image.image.url }}" alt="{{ image.title }}" class="img-fluid">
+                                    <p class="mt-3">{{ image.description }}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="gallery-card-body">
-                            <h5 class="gallery-title">{{ image.title }}</h5>
-                            <p class="gallery-category">{{ image.category.name }}</p>
-                        </div>
                     </div>
-                </div>
-                
-                <!-- Modal for image preview -->
-                <div class="modal fade" id="imageModal{{ image.id }}" tabindex="-1">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">{{ image.title }}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <img src="{{ image.image.url }}" alt="{{ image.title }}" class="img-fluid">
-                                <p class="mt-3">{{ image.description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="featured-images-scrollbar swiper-scrollbar"></div>
         </div>
     </div>
 </section>
@@ -114,10 +149,13 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="feature-box text-center">
                     <div class="feature-icon">
-                        <i class="fas fa-award"></i>
+                        <i class="fas fa-map-marker-alt"></i>
                     </div>
-                    <h4>Excellence</h4>
-                    <p>Top-quality workmanship in every project we undertake</p>
+                    {% comment %} <h4>Excellence</h4> {% endcomment %}
+                    <h4>Location</h4>
+                    {% comment %} <p>Top-quality workmanship in every project we undertake</p> {% endcomment %}
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2570.0285089586077!2d30.22312849999999!3d-1.9791773999999982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19db597669e9f65f%3A0xa4f80ed6ad905f8d!2sKabuga%20Bus%20Park!5e1!3m2!1sen!2srw!4v1752750149841!5m2!1sen!2srw"
+                         width="250" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">

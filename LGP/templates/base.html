@@ -13,6 +13,8 @@
     <!-- Custom CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
     <!-- Navigation -->
@@ -46,9 +48,9 @@
                     </li>
                     
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
+                        {% comment %} <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
-                        </li>
+                        </li> {% endcomment %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:password_change' %}">Change Password</a>
                         </li>
@@ -67,9 +69,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
                         </li>
-                        <li class="nav-item">
+                        {% comment %} <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
-                        </li>
+                        </li> {% endcomment %}
                     {% endif %}
                 </ul>
             </div>
@@ -94,7 +96,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="bg-dark text-white py-4 ">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -103,8 +105,12 @@
                 </div>
                 <div class="col-md-4">
                     <h5>Contact Info</h5>
-                    <p><i class="fas fa-envelope"></i> {{ site_settings.contact_email|default:"contact@lyngallery.com" }}</p>
-                    <p><i class="fas fa-phone"></i> {{ site_settings.contact_phone|default:"+25078---" }}</p>
+                    <a href="mailto:{{ site_settings.contact_email|default:"contact@lyngallery.com" }}" class="text-decoration-none text-white"><i class="fas fa-envelope"></i> {{ site_settings.contact_email|default:"contact@lyngallery.com" }}</a> 
+                    <br>
+                    <a href="tel:+250785080997" target="_blank" class="text-decoration-none text-white"><i class="fas fa-phone"></i> {{ site_settings.contact_phone|default:"+250785080997" }}</a>
+                    <br>
+                    <a href="https://wa.me/250785080997" target="_blank" class="text-decoration-none text-white"><i class="fab fa-whatsapp"></i> +250 785 080 997</a>
+                   
                 </div>
                 <div class="col-md-4">
                     <h5>Follow Us</h5>
@@ -112,7 +118,8 @@
                         <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
                         <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/250785080997" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                        
                     </div>
                 </div>
             </div>
@@ -123,8 +130,17 @@
         </div>
     </footer>
 
+    <!-- Image Modal (Reusable) -->
+    <div id="imageModal" class="modal" tabindex="-1" style="display:none;">
+      <span class="close" id="closeImageModal">&times;</span>
+      <img class="modal-content" id="modalImage">
+    </div>
+    <!-- End Image Modal -->
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}

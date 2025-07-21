@@ -28,6 +28,7 @@ body {
     transition: all 0.3s ease;
 }
 
+
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
@@ -505,4 +506,210 @@ footer {
     background-color: #d4edda;
     color: #155724;
 }
+
+
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.03);
+}
+
+/* Featured Videos Swiper Custom Styles */
+.featured-videos-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    height: auto;
+}
+.featured-videos-swiper .card {
+    width: 100%;
+    max-width: 350px;
+    min-width: 250px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+@media (max-width: 992px) {
+    .featured-videos-swiper .card {
+        max-width: 300px;
+    }
+}
+@media (max-width: 768px) {
+    .featured-videos-swiper .card {
+        max-width: 90vw;
+    }
+}
+
+/* Swiper container fix for videos */
+.featured-videos-swiper {
+    width: 100%;
+    min-width: 0;
+    min-height: 350px;
+    box-sizing: border-box;
+    padding-bottom: 40px;
+}
+.featured-videos-swiper .swiper-wrapper {
+    display: flex;
+}
+.featured-videos-swiper .swiper-slide {
+    flex-shrink: 0;
+    width: auto !important;
+}
+
+/* Small video card for featured videos */
+.video-card-small {
+    max-width: 220px;
+    min-width: 160px;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+@media (max-width: 992px) {
+    .video-card-small {
+        max-width: 180px;
+    }
+}
+@media (max-width: 768px) {
+    .video-card-small {
+        max-width: 90vw;
+    }
+}
+/* Swiper scrollbar style for videos */
+.featured-videos-swiper .swiper-scrollbar {
+    background: #eee;
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.featured-videos-swiper .swiper-scrollbar-drag {
+    background: #ffa500;
+    border-radius: 4px;
+}
+
+/* Featured Images Swiper Custom Styles */
+.featured-images-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    height: auto;
+}
+.featured-images-swiper .card {
+    width: 100%;
+    max-width: 350px;
+    min-width: 250px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+@media (max-width: 992px) {
+    .featured-images-swiper .card {
+        max-width: 300px;
+    }
+}
+@media (max-width: 768px) {
+    .featured-images-swiper .card {
+        max-width: 90vw;
+    }
+}
+
+/* Swiper container fix for images */
+.featured-images-swiper {
+    width: 100%;
+    min-width: 0;
+    min-height: 350px;
+    box-sizing: border-box;
+    padding-bottom: 40px;
+}
+.featured-images-swiper .swiper-wrapper {
+    display: flex;
+}
+.featured-images-swiper .swiper-slide {
+    flex-shrink: 0;
+    width: auto !important;
+}
+
+/* Small image card for featured images - always show 3 per view on desktop */
+.image-card-small {
+    flex: 0 0 31%; /* 3 cards per row with some gap */
+    max-width: 31%;
+    min-width: 180px;
+    width: 100%;
+    margin: 0 1%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+@media (max-width: 992px) {
+    .image-card-small {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+}
+@media (max-width: 768px) {
+    .image-card-small {
+        flex: 0 0 90vw;
+        max-width: 90vw;
+    }
+}
+/* Swiper scrollbar style for images */
+.featured-images-swiper .swiper-scrollbar {
+    background: #eee;
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.featured-images-swiper .swiper-scrollbar-drag {
+    background: #ffa500;
+    border-radius: 4px;
+}
+
+/* Responsive Image Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  padding-top: 0;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: auto;
+}
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1100;
+}
+@media (max-width: 600px) {
+  .modal-content {
+    max-width: 98vw;
+    max-height: 80vh;
+  }
+  .close {
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+  }
+}
+/* End Responsive Image Modal Styles */
+
 

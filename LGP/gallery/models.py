@@ -84,3 +84,35 @@ class AboutPage(models.Model):
 
     def __str__(self):
         return self.title
+    
+    
+    
+    
+class GalleryVideo(models.Model):
+    title = models.CharField(max_length=200)
+    thumbnail = models.ImageField(upload_to='video_thumbnails/')
+    video_file = models.FileField(upload_to='gallery_videos/')
+    description = models.TextField(blank=True)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    is_featured = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-is_featured', '-uploaded_at']
+
+    def __str__(self):
+        return self.title
+
+class AboutFeature(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    icon = models.CharField(max_length=50, default='fa-star', help_text='FontAwesome icon class, e.g., fa-lightbulb')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = 'About Feature'
+        verbose_name_plural = 'About Features'
+
+    def __str__(self):
+        return self.title

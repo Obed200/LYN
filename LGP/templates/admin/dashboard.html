@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container mt-5 pt-5">
+<div class="container mt-2 mb-5 pt-5">
     <h2 class="mb-4">Admin Dashboard</h2>
     <!-- Summary Cards -->
     <div class="row mb-4">
@@ -43,10 +43,10 @@
         <a href="{% url 'gallery:site_settings' %}" class="btn btn-warning"><i class="fas fa-cog"></i> Site Settings</a>
         <a href="{% url 'gallery:about_page_edit' %}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> Edit About Page</a>
         <a href="{% url 'gallery:gallery' %}" class="btn btn-success"><i class="fas fa-images"></i> View Gallery</a>
-        <a href="{% url 'gallery:contact' %}" class="btn btn-info"><i class="fas fa-envelope"></i> View Messages</a>
+        <a href="{% url 'gallery:message' %}" class="btn btn-info"><i class="fas fa-envelope"></i> View Messages</a>
     </div>
     <!-- Recent Activity -->
-    <div class="row">
+    {% comment %} <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-primary text-white">Recent Images</div>
@@ -65,21 +65,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-info text-white">Recent Messages</div>
-                <ul class="list-group list-group-flush">
-                    {% for msg in recent_messages %}
-                        <li class="list-group-item">
-                            <strong>{{ msg.name }}</strong>: {{ msg.subject|truncatechars:30 }}<br>
-                            <small class="text-muted">{{ msg.created_at|date:"M d, Y H:i" }}</small>
-                        </li>
-                    {% empty %}
-                        <li class="list-group-item">No recent messages.</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
+        
+    </div> {% endcomment %}
 </div>
 {% endblock %}
